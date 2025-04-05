@@ -11,11 +11,11 @@ fecha_nacimiento DATE,
 estado_civil CHAR(20) DEFAULT NULL,
 nacionalidad VARCHAR(30) DEFAULT "Argentina",
 telefono VARCHAR(20) DEFAULT NULL,
-email VARCHAR(100) DEFAULT NULL UNIQUE,
+email_personal VARCHAR(100) DEFAULT NULL UNIQUE,
 domicilio VARCHAR(100),
-id_localidad INT NOT NULL,
-id_provincia INT NOT NULL,
-id_pais INT DEFAULT "1",
+localidad INT NOT NULL,
+provincia INT NOT NULL,
+pais INT DEFAULT "1",
 titulo VARCHAR(100) DEFAULT NULL
 );
 
@@ -49,26 +49,28 @@ id_legajo INT PRIMARY KEY AUTO_INCREMENT,
 documento INT NOT NULL,
 puesto INT NOT NULL,
 fecha_alta TIMESTAMP,
-fecha_baja DATETIME,
-causa_baja VARCHAR(1000),
+fecha_baja DATE DEFAULT NULL,
+causa_baja VARCHAR(1000) DEFAULT NULL,
 antiguedad INT,
 FOREIGN KEY (puesto) REFERENCES puestos_trabajo(id_puesto),
 FOREIGN KEY (documento) REFERENCES empleados(documento)
 );
 
-/*algunos ajustes realizados posteriormente*/
+ALTER TABLE empleados ADD CONSTRAINT FK_localidad FOREIGN KEY (localidad) REFERENCES localidades(codigo_postal);
+ALTER TABLE empleados ADD CONSTRAINT FK_provincia FOREIGN KEY (provincia) REFERENCES provincias(id_provincia);
+ALTER TABLE empleados ADD CONSTRAINT FK_pais FOREIGN KEY (pais) REFERENCES paises(id_pais);
+
+-- algunos ajustes realizados posteriormente
 /*ALTER TABLE fundacionev.empleados RENAME COLUMN email TO email_personal;
 ALTER TABLE fundacionev.empleados RENAME COLUMN id_localidad TO localidad;
 ALTER TABLE fundacionev.empleados RENAME COLUMN id_provincia TO provincia;
 ALTER TABLE fundacionev.empleados RENAME COLUMN id_pais TO pais;
 UPDATE empleados SET nacionalidad = "argentino" WHERE documento = 30765387;
-ALTER TABLE empleados ADD CONSTRAINT FK_localidad FOREIGN KEY (localidad) REFERENCES localidades(codigo_postal);
-ALTER TABLE empleados ADD CONSTRAINT FK_provincia FOREIGN KEY (provincia) REFERENCES provincias(id_provincia);
-ALTER TABLE empleados ADD CONSTRAINT FK_pais FOREIGN KEY (pais) REFERENCES paises(id_pais);
-UPDATE empleados SET provincia = 34;*/
+UPDATE empleados SET provincia = 34;
+ALTER TABLE legajos MODIFY COLUMN fecha_baja DATE DEFAULT NULL;*/
 
 
-SELECT * FROM provincias;
+SELECT * FROM legajos;
 
 
 /*insercion de datos a las tablas*/
@@ -94,6 +96,22 @@ VALUES(1, "Ciudad Autónoma de Buenos Aires"), (1, "Buenos Aires"), (1 , "Catama
 
 INSERT INTO localidades(codigo_postal, localidad, provincia)
 VALUES (5300, "La Rioja", 33), (5360, "Chilecito", 33), (5310, "Aimogasta", 33), (5365, "Famatina", 33), (5380, "Chamical", 33);
+
+INSERT INTO legajos(documento, puesto, fecha_alta, fecha_baja, causa_baja)
+VALUES
+(30765387, 1, "2021-01-05", NULL, ""),
+(20593143, 2, "2022-01-21", NULL, ""),
+(22076040, 3, "2022-08-10", NULL, ""),
+(30074659, 7, "2023-06-21", NULL, ""),
+(18963626, 6, "2021-08-08", NULL, ""),
+(32309480, 5, "2023-03-23", NULL, ""),
+(35580496, 4, "2022-09-07", NULL, ""),
+(34947055, 8, "2024-03-06", NULL, "");
+
+SELECT l.documento, e.nombre, pt.puesto, l.fecha_alta 
+FROM legajos l
+JOIN puestos_trabajo pt ON pt.id_puesto = l.puesto
+JOIN empleados e ON e.documento = l.documento;
 
 
 
