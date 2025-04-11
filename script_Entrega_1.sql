@@ -18,7 +18,6 @@ provincia INT NOT NULL,
 pais INT DEFAULT "1",
 titulo VARCHAR(100) DEFAULT NULL
 );
-
 CREATE TABLE puestos_trabajo(
 	id_puesto INT PRIMARY KEY AUTO_INCREMENT,
 	puesto VARCHAR(30)
@@ -55,6 +54,15 @@ antiguedad INT,
 FOREIGN KEY (puesto) REFERENCES puestos_trabajo(id_puesto),
 FOREIGN KEY (documento) REFERENCES empleados(documento)
 );
+CREATE TABLE asistencias(
+id_asistencia INT PRIMARY KEY AUTO_INCREMENT,
+documento INT NOT NULL,
+fecha_hora_in DATETIME NOT NULL,
+fecha_hora_out DATETIME,
+tipo_asistencia VARCHAR(50),
+turno ENUM ('mañana', 'tarde', 'noche'),
+FOREIGN KEY (documento) REFERENCES empleados(documento)
+);
 
 ALTER TABLE empleados ADD CONSTRAINT FK_localidad FOREIGN KEY (localidad) REFERENCES localidades(codigo_postal);
 ALTER TABLE empleados ADD CONSTRAINT FK_provincia FOREIGN KEY (provincia) REFERENCES provincias(id_provincia);
@@ -68,10 +76,6 @@ ALTER TABLE fundacionev.empleados RENAME COLUMN id_pais TO pais;
 UPDATE empleados SET nacionalidad = "argentino" WHERE documento = 30765387;
 UPDATE empleados SET provincia = 34;
 ALTER TABLE legajos MODIFY COLUMN fecha_baja DATE DEFAULT NULL;*/
-
-
-SELECT * FROM legajos;
-
 
 /*insercion de datos a las tablas*/
 INSERT INTO empleados(documento, nombre, fecha_nacimiento, estado_civil, nacionalidad, telefono, email_personal, domicilio, localidad, provincia, pais, titulo)
@@ -108,13 +112,46 @@ VALUES
 (35580496, 4, "2022-09-07", NULL, ""),
 (34947055, 8, "2024-03-06", NULL, "");
 
-SELECT l.documento, e.nombre, pt.puesto, l.fecha_alta 
+INSERT INTO asistencias(documento, fecha_hora_in, fecha_hora_out, tipo_asistencia, turno)
+VALUES 
+(30765387, '2025-01-15 07:00:00', '2021-01-05 15:00:00', 'Normal', 'mañana'),
+(20593143, '2025-01-15 08:30:00', '2023-10-26 17:00:00', 'Tardanza', 'mañana'),
+(22076040, '2025-01-15 14:00:00', '2023-10-26 22:00:00', 'Normal', 'tarde'),
+(30074659, '2025-01-15 09:00:00', '2023-10-26 17:30:00', 'Hora extra', 'mañana'),
+(18963626, '2025-01-15 08:15:00', NULL, 'Permiso', 'mañana'),
+(32309480, '2025-01-15 15:00:00', '2023-10-26 23:00:00', 'Normal', 'tarde'),
+(35580496, '2025-01-15 07:35:00', '2023-10-27 16:45:00', 'Normal', 'tarde'),
+(34947055, '2025-01-15 08:00:00', '2023-10-26 16:00:00', 'Normal', 'mañana'),
+(30765387, '2025-01-16 08:00:00', '2025-01-15 16:30:00', 'Normal', 'mañana'),
+(20593143, '2025-01-16 09:15:00', '2025-01-15 17:00:00', 'Tardanza', 'mañana'),
+(22076040, '2025-01-16 07:30:00', '2025-01-15 15:45:00', 'Normal', 'mañana'),
+(30074659, '2025-01-16 10:00:00', NULL, 'Ausencia', 'mañana'),
+(18963626, '2025-01-16 08:30:00', '2025-01-15 18:00:00', 'Hora extra', 'mañana'),
+(32309480, '2025-01-16 07:45:00', '2025-01-15 16:15:00', 'Teletrabajo', 'mañana'),
+(35580496, '2025-01-16 10:30:00', NULL, 'Ausencia', 'mañana'),
+(34947055, '2025-01-16 09:00:00', '2025-01-15 17:30:00', 'Normal', 'mañana'),
+(30765387, '2025-01-17 07:45:00', '2025-01-17 16:15:00', 'Normal', 'mañana'),
+(20593143, '2025-01-17 09:00:00', '2025-01-17 17:30:00', 'Tardanza', 'mañana'),
+(22076040, '2025-01-17 08:30:00', '2025-01-17 17:00:00', 'Normal', 'mañana'),
+(30074659, '2025-01-17 10:15:00', NULL, 'Ausencia', 'mañana'),
+(18963626, '2025-01-17 08:00:00', '2025-01-17 18:30:00', 'Hora extra', 'mañana'),
+(32309480, '2025-01-17 07:30:00', '2025-01-17 16:00:00', 'Teletrabajo', 'mañana'),
+(35580496, '2025-01-17 10:45:00', NULL, 'Ausencia', 'mañana'),
+(34947055, '2025-01-17 09:30:00', '2025-01-17 18:00:00', 'Normal', 'mañana');
+
+/*SELECT l.documento, e.nombre, pt.puesto, l.fecha_alta 
 FROM legajos l
 JOIN puestos_trabajo pt ON pt.id_puesto = l.puesto
-JOIN empleados e ON e.documento = l.documento;
+JOIN empleados e ON e.documento = l.documento;*/
 
 
-
+/*SELECT e.documento, e.nombre, a.tipo_asistencia,
+COUNT(a.tipo_asistencia)
+FROM empleados e
+JOIN asistencias a ON a.documento = e.documento
+GROUP BY
+e.documento,
+a.tipo_asistencia;*/
 
 
 
