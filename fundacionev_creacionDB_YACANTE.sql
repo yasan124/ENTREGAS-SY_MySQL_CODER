@@ -61,7 +61,7 @@ FOREIGN KEY (documento) REFERENCES empleados(documento)
 CREATE TABLE asistencias(
 id_asistencia INT PRIMARY KEY AUTO_INCREMENT,
 documento INT NOT NULL,
-fecha_hora_in DATETIME NOT NULL,
+fecha_hora_in TIMESTAMP NOT NULL,
 fecha_hora_out DATETIME,
 tipo_asistencia VARCHAR(50),
 turno ENUM ('mañana', 'tarde', 'noche'),
