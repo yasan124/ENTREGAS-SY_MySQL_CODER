@@ -15,12 +15,16 @@ email_personal VARCHAR(100) DEFAULT NULL UNIQUE,
 domicilio VARCHAR(100),
 localidad INT NOT NULL,
 provincia INT NOT NULL,
-pais INT DEFAULT "1",
-titulo VARCHAR(100) DEFAULT NULL
+pais INT DEFAULT 1,
+titulo VARCHAR(100) DEFAULT NULL,
+FOREIGN KEY (localidad) REFERENCES localidades(codigo_postal),
+FOREIGN KEY (provincia) REFERENCES provincias(id_provincia),
+FOREIGN KEY (pais) REFERENCES pais(id_pais)
 );
 CREATE TABLE puestos_trabajo(
 	id_puesto INT PRIMARY KEY AUTO_INCREMENT,
-	puesto VARCHAR(30)
+	puesto VARCHAR(30),
+    sector INT NOT NULL
     );
 CREATE TABLE localidades(
 	codigo_postal INT PRIMARY KEY,
@@ -64,24 +68,7 @@ turno ENUM ('mañana', 'tarde', 'noche'),
 FOREIGN KEY (documento) REFERENCES empleados(documento)
 );
 
-ALTER TABLE empleados ADD CONSTRAINT FK_localidad FOREIGN KEY (localidad) REFERENCES localidades(codigo_postal);
-ALTER TABLE empleados ADD CONSTRAINT FK_provincia FOREIGN KEY (provincia) REFERENCES provincias(id_provincia);
-ALTER TABLE empleados ADD CONSTRAINT FK_pais FOREIGN KEY (pais) REFERENCES paises(id_pais);
-ALTER TABLE puestos_trabajo ADD CONSTRAINT FK_sector FOREIGN KEY (sector) REFERENCES sectores(id_sector);
--- ALTER TABLE puestos_trabajo ADD COLUMN sector INT NOT NULL;
-
-UPDATE puestos_trabajo SET sector = 4 WHERE id_puesto = 3;
-
--- algunos ajustes realizados posteriormente
-/*ALTER TABLE fundacionev.empleados RENAME COLUMN email TO email_personal;
-ALTER TABLE fundacionev.empleados RENAME COLUMN id_localidad TO localidad;
-ALTER TABLE fundacionev.empleados RENAME COLUMN id_provincia TO provincia;
-ALTER TABLE fundacionev.empleados RENAME COLUMN id_pais TO pais;
-UPDATE empleados SET nacionalidad = "argentino" WHERE documento = 30765387;
-UPDATE empleados SET provincia = 34;
-ALTER TABLE legajos MODIFY COLUMN fecha_baja DATE DEFAULT NULL;*/
-
-/*insercion de datos a las tablas*/
+/*insercion de datos en las tablas*/
 INSERT INTO empleados(documento, nombre, fecha_nacimiento, estado_civil, nacionalidad, telefono, email_personal, domicilio, localidad, provincia, pais, titulo)
 VALUES
 (30765387, "Gustavo Adolfo Valente", "1971-09-16", "casado", "", "+54 (380) 102-1436", "gustavo.valente@outlook.com", "Ruela Velásquez 405", 5300, 8, 1, "Contador Publico"),
@@ -123,8 +110,6 @@ VALUES
 ("Cuentas por Pagar", "CP"),
 ("Tesoreria", "TS");
 
-SELECT * FROM sectores;
-
 INSERT INTO asistencias(documento, fecha_hora_in, fecha_hora_out, tipo_asistencia, turno)
 VALUES 
 (30765387, '2025-01-15 07:00:00', '2021-01-05 15:00:00', 'Normal', 'mañana'),
@@ -151,41 +136,4 @@ VALUES
 (32309480, '2025-01-17 07:30:00', '2025-01-17 16:00:00', 'Teletrabajo', 'mañana'),
 (35580496, '2025-01-17 10:45:00', NULL, 'Ausencia', 'mañana'),
 (34947055, '2025-01-17 09:30:00', '2025-01-17 18:00:00', 'Normal', 'mañana');
-
-/*SELECT l.documento, e.nombre, pt.puesto, l.fecha_alta 
-FROM legajos l
-JOIN puestos_trabajo pt ON pt.id_puesto = l.puesto
-JOIN empleados e ON e.documento = l.documento;*/
-
-
-/*SELECT e.documento, e.nombre, a.tipo_asistencia,
-COUNT(a.tipo_asistencia)
-FROM empleados e
-JOIN asistencias a ON a.documento = e.documento
-GROUP BY
-e.documento,
-a.tipo_asistencia;*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*VALUES(0, "Ciudad Autónoma de Buenos Aires"), (1, "Buenos Aires"), (2 , "Catamarca"), (3, "Córdoba"), (4 , "Corrientes"), (5 , "Entre Ríos"), (6 , "Jujuy"), (7 , "Mendoza"), (8 , "La Rioja"), (9 , "Salta"), (10 , "San Juan"), (11 , "San Luis"), (12 , "Santa Fe"), (13 , "Santiago del Estero"), (14 , "Tucumán"), (15 , "Chaco"), (16 , "Chubut"), (17 , "Formosa"), (18 , "Misiones"), (19 , "Neuquén"), (20 , "La Pampa"), (21 , "Río Negro"), (22 , "Santa Cruz"),(23 , "Tierra del Fuego");*/
-
-
-
-
-
-
 
