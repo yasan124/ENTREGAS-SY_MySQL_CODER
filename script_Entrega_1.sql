@@ -112,6 +112,10 @@ VALUES
 (35580496, 4, "2022-09-07", NULL, ""),
 (34947055, 8, "2024-03-06", NULL, "");
 
+INSERT INTO sectores()
+VALUES 
+()
+
 INSERT INTO asistencias(documento, fecha_hora_in, fecha_hora_out, tipo_asistencia, turno)
 VALUES 
 (30765387, '2025-01-15 07:00:00', '2021-01-05 15:00:00', 'Normal', 'mañana'),
