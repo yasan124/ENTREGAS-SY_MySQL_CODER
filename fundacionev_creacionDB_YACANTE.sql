@@ -71,14 +71,14 @@ FOREIGN KEY (documento) REFERENCES empleados(documento)
 /*insercion de datos en las tablas*/
 INSERT INTO empleados(documento, nombre, fecha_nacimiento, estado_civil, nacionalidad, telefono, email_personal, domicilio, localidad, provincia, pais, titulo)
 VALUES
-(30765387, "Gustavo Adolfo Valente", "1971-09-16", "casado", "", "+54 (380) 102-1436", "gustavo.valente@outlook.com", "Ruela Velásquez 405", 5300, 8, 1, "Contador Publico"),
-(20593143, "Maria Cruz Vera", "1965-09-16", "casada", "argentino", "+54 (380) 698-0715", "maria_vera@yahoo.com.ar", "Av. Rivadavia 4590", 5300, 8, 1, "Licenciada en Administracion de Empresas"),
-(22076040, "Bernardo Saavedra", "1971-06-14", "casado", "argentino", "+54 (380) 530-7084", "bernardo_saavedra@hotmail.com", "Calle Mendoza 812", 5300, 8, 1, "Licenciado en Recuros Humanos"),
-(30074659, "Abril Cabanillas", "1982-04-07", "viuda", "uruguaya", "+54 (380) 387-6723", "abril-cabanillas@hotmail.com", "Calle Tucumán 1223", 5300, 8, 1, "Escribana"),
-(18963626, "Francisco Javier Vazquez", "1960-09-12", "soltero", "argentino", "+54 (380) 022-6256", "francisco_vazquez@outlook.com", "Av. Belgrano Sur 3456", 5300, 8, 1, "Tecnico electricista"),
-(32309480, "Maria Montivero", "1988-01-14", "casada", "argentino", "+54 (380) 433-8872", "meri.montivero@gmail.com", "Pasaje Sufan 1145", 5300, 8, 1, "Contadora Publica"),
-(35580496, "Emilio Riveros", "1992-01-16", "soltero", "chileno", "+54 (380) 488-3901", "emiriveros@gmail.com", "Bulevar Sarmiento 2060", 5300, 8, 1, "Licenciado en Relaciones Publicas"),
-(34947055, "Carmen Zapata", "1990-06-21", "soltera", "argentino", "+54 (380) 663-8145", "carmen_zapata@hotmail.com", "Calle Los Tilos 1433", 5300, 8, 1, "");
+(30765387, "Gustavo Adolfo Valente", "1971-09-16", "casado", "", "+54 (380) 102-1436", "gustavo.valente@outlook.com", "Ruela Velásquez 405", 5300, 33, 1, "Contador Publico"),
+(20593143, "Maria Cruz Vera", "1965-09-16", "casada", "argentino", "+54 (380) 698-0715", "maria_vera@yahoo.com.ar", "Av. Rivadavia 4590", 5300, 33, 1, "Licenciada en Administracion de Empresas"),
+(22076040, "Bernardo Saavedra", "1971-06-14", "casado", "argentino", "+54 (380) 530-7084", "bernardo_saavedra@hotmail.com", "Calle Mendoza 812", 5300, 33, 1, "Licenciado en Recuros Humanos"),
+(30074659, "Abril Cabanillas", "1982-04-07", "viuda", "uruguaya", "+54 (380) 387-6723", "abril-cabanillas@hotmail.com", "Calle Tucumán 1223", 5300, 33, 1, "Escribana"),
+(18963626, "Francisco Javier Vazquez", "1960-09-12", "soltero", "argentino", "+54 (380) 022-6256", "francisco_vazquez@outlook.com", "Av. Belgrano Sur 3456", 5300, 33, 1, "Tecnico electricista"),
+(32309480, "Maria Montivero", "1988-01-14", "casada", "argentino", "+54 (380) 433-8872", "meri.montivero@gmail.com", "Pasaje Sufan 1145", 5300, 33, 1, "Contadora Publica"),
+(35580496, "Emilio Riveros", "1992-01-16", "soltero", "chileno", "+54 (380) 488-3901", "emiriveros@gmail.com", "Bulevar Sarmiento 2060", 5300, 33, 1, "Licenciado en Relaciones Publicas"),
+(34947055, "Carmen Zapata", "1990-06-21", "soltera", "argentino", "+54 (380) 663-8145", "carmen_zapata@hotmail.com", "Calle Los Tilos 1433", 5300, 33, 1, "");
 
 INSERT INTO puestos_trabajo(puesto, sector)
 VALUES ("Presidente", 1), ("Secretario", 1), ("Tesorero", 4), ("Analista Administrativo", 2), ("Analista Contable", 3), ("Auxiliar Tecnico", 2), ("Coordinador Legal", 1), ("Auxiliar Administrativo", 2), ("Coordinador General", 2);
